@@ -1,1 +1,9 @@
-<p>preview works!</p>
+<a class="thumbnail" href="#">
+  <img class="img-responsive" src="{{ productUrl }}" alt="image" />
+  <img
+    *ngIf="imageLoading"
+    class="img-responsive jumbo"
+    src="../../assets/images/spinner.gif"
+    alt=""
+  />
+</a>
