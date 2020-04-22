@@ -7,10 +7,11 @@
   width: 65px;
   height: 65px;
   float: left;
+  border-radius: 5px;
 }
 
 .gallery li.selected {
-  border: solid 2px #ff0000;
+  border: solid 2px #002954;
 }
 
 .thumbnail {
