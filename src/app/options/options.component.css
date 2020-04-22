@@ -1,0 +1,24 @@
+ul.swatches {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  clear: both;
+}
+.swatches li {
+  float: left;
+}
+.swatch {
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  margin: 5px;
+}
+
+.swatch-clickable:hover {
+  border: 2px solid #002954;
+  cursor: pointer;
+}
+.swatch-clickable.selected {
+  border: solid 2px #002954;
+}
