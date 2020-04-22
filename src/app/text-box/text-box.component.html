@@ -1,0 +1,84 @@
+<div class="card">
+  <div class="card-header">Text Properties</div>
+  <div class="card-body">
+    <div class="custom-item">
+      <div class="custom-item-title">Text</div>
+      <div class="custom-item-body">
+        <input
+          type="text"
+          class="form-control"
+          (input)="setText()"
+          [(ngModel)]="textProps.text"
+        />
+      </div>
+    </div>
+    <div class="custom-item">
+      <div class="custom-item-title">Styling</div>
+      <div class="custom-item-body">
+        <div class="form-row">
+          <div class="col-6">
+            <select
+              [(ngModel)]="textProps.fontFamily"
+              class="form-control"
+              (change)="setFontFamily()"
+            >
+              <option
+                *ngFor="let fontFamily of fontFamilyArr"
+                [value]="fontFamily.code"
+                >{{ fontFamily.value }}</option
+              >
+            </select>
+          </div>
+          <div class="col-3 text-center">
+            <div class="btn-group" role="group">
+              <button
+                type="button"
+                class="btn btn-primary"
+                [ngClass]="{ active: textProps.fontWeight }"
+                (click)="setBold()"
+              >
+                <i class="fa fa-bold"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                [ngClass]="{ active: textProps.fontStyle }"
+                (click)="setFontStyle()"
+              >
+                <i class="fa fa-italic"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-3">
+            <input
+              type="text"
+              class="form-control"
+              [cpPosition]="'bottom'"
+              [(colorPicker)]="textProps.fill"
+              [style.background]="textProps.fill"
+              [value]="textProps.fill"
+              (cpSliderDragEnd)="setFill()"
+            />
+          </div>
+        </div>
+        <div class="form-group row mt-1">
+          <label for="fontSize" class="col-4 col-form-label"
+            >Font size: ( {{ textProps.fontSize }} )</label
+          >
+          <div class="col-8 mt-2 text-center">
+            <input
+              type="range"
+              id="fontSize"
+              [(ngModel)]="textProps.fontSize"
+              class="slider"
+              (mouseup)="setFontSize()"
+              step="1"
+              min="10"
+              max="120"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
