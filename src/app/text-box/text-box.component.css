@@ -4,7 +4,7 @@
 }
 
 .custom-item .custom-item-body {
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 .btn-group .btn-primary.active {
@@ -47,4 +47,11 @@
   border-radius: 50%;
   background: #007bff;
   cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #002954;
+}
+.slider::-moz-range-thumb:hover {
+  background: #002954;
 }
