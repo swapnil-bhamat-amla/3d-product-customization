@@ -44,13 +44,13 @@ export class PreviewComponent implements OnInit, OnDestroy {
         break;
       }
       case ActionType.Options: {
-        console.log(action.data.sku);
         this.sku = action.data.sku;
         this.updatePreviewImage();
         break;
       }
       case ActionType.Views: {
         this.viewCode = action.data.code;
+        console.log(action.data.code);
         this.updatePreviewImage();
         break;
       }

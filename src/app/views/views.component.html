@@ -1,1 +1,17 @@
-<p>views works!</p>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label
+    *ngFor="let view of views"
+    class="btn btn-primary"
+    [ngClass]="{ active: view.code === selectedViewCode }"
+    (click)="changeView(view.code)"
+  >
+    <input
+      type="radio"
+      name="options"
+      [id]="view.code"
+      autocomplete="off"
+      [checked]="view.code === selectedViewCode"
+    />
+    {{ view.name }}
+  </label>
+</div>
