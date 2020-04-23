@@ -62,14 +62,13 @@ export class ImageComponent implements OnInit {
   addObject() {
     let objectName = 'Image1';
     if (objectName && objectName.trim()) {
-      let objectId = this.service.makeId(5);
+      let objectId = 'LC'; //TODO: Passed hard code due to requirement and removed
       this.selectedObjectId = objectId;
       this.imageProps.widget_key = objectId;
       this.objectsArr.push({
         id: objectId,
         value: objectName,
       });
-      this.sendObjectDetails();
     }
   }
 

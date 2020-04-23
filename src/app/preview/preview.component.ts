@@ -1,6 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConnectorService } from '../connector.service';
-import { IAction, ITextProp, ActionType, IImage } from '../type';
+import {
+  IAction,
+  ITextProp,
+  ActionType,
+  IImage,
+  FontStyleType,
+  FontWeightType,
+} from '../type';
 
 @Component({
   selector: 'app-preview',
@@ -21,7 +28,33 @@ export class PreviewComponent implements OnInit, OnDestroy {
   maxHeight = 500;
   widgetCollection: { [key: string]: ITextProp | IImage } = {};
 
-  constructor(private service: ConnectorService) {}
+  constructor(private service: ConnectorService) {
+    this.widgetCollection = {
+      LC: {
+        type: 'image',
+        src: '97963',
+        widget_key: 'LC',
+        width: 90,
+        height: 90,
+        left: 470.07,
+        top: 230.29,
+      },
+      RC: {
+        text: 'Artifi',
+        fill: '#FFFFFF',
+        type: 'textbox',
+        widget_key: 'RC',
+        width: 300,
+        height: 150,
+        fontStyle: FontStyleType.Normal,
+        fontSize: 30,
+        left: 610.07,
+        top: 245.29,
+        fontWeight: FontWeightType.Normal,
+        fontFamily: 'Arial',
+      },
+    };
+  }
 
   ngOnInit() {
     this.updatePreviewImage();
@@ -83,6 +116,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   private getUpdateProductUrl(): string {
     let widgetArr = this.generateWidgetArr();
+    console.log(widgetArr);
     let url = `${this.getImageAPIDomain}?format=${
       this.imageFormat
     }&webApiClientKey=${this.webAPIClientKey}&websiteId=${this.websiteId}&sku=${

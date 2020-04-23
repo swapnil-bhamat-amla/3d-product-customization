@@ -76,14 +76,13 @@ export class TextBoxComponent implements OnInit {
   addObject() {
     let objectName = 'Text1';
     if (objectName && objectName.trim()) {
-      let objectId = this.service.makeId(5);
+      let objectId = 'RC';
       this.selectedObjectId = objectId;
       this.textProps.widget_key = objectId;
       this.objectsArr.push({
         id: objectId,
         value: objectName,
       });
-      this.sendObjectDetails();
     }
   }
 
