@@ -25,11 +25,11 @@ export class ImageComponent implements OnInit {
     this.imageProps = {
       type: 'image',
       src: this.selectedClipArt,
-      widget_key: this.service.makeId(5),
-      left: 300,
-      top: 300,
-      width: 300,
-      height: 300,
+      widget_key: 'LC',
+      width: 90,
+      height: 90,
+      left: 470.07,
+      top: 230.29,
     };
     this.clipArtsArr = [
       {

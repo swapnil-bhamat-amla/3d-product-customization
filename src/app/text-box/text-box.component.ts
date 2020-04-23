@@ -27,18 +27,18 @@ export class TextBoxComponent implements OnInit {
 
   constructor(private service: ConnectorService) {
     this.textProps = {
-      fill: '#ff0000',
-      text: 'sample text',
+      text: 'Artifi',
+      fill: '#FFFFFF',
       type: 'textbox',
-      fontSize: 20,
-      fontWeight: FontWeightType.Normal,
-      fontStyle: FontStyleType.Normal,
-      fontFamily: 'Ubuntu',
-      widget_key: this.selectedObjectId,
-      left: 200,
-      top: 200,
+      widget_key: 'RC',
       width: 300,
       height: 150,
+      fontStyle: FontStyleType.Normal,
+      fontSize: 30,
+      left: 610.07,
+      top: 245.29,
+      fontWeight: FontWeightType.Normal,
+      fontFamily: 'Arial',
     };
 
     this.fontFamilyArr = [
