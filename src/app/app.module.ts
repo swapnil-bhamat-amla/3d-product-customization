@@ -11,6 +11,9 @@ import { ImageComponent } from './image/image.component';
 import { OptionsComponent } from './options/options.component';
 import { ViewsComponent } from './views/views.component';
 import { ConnectorService } from './connector.service';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { ConnectorService } from './connector.service';
     ImageComponent,
     OptionsComponent,
     ViewsComponent,
+    HeaderComponent,
+    FooterComponent,
+    ProductDetailsComponent,
   ],
   imports: [BrowserModule, FormsModule, ColorPickerModule],
   providers: [ConnectorService],
