@@ -69,10 +69,12 @@ export class TextBoxComponent implements OnInit {
     ];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.addObject();
+  }
 
   addObject() {
-    let objectName = window.prompt('Please enter text name', '');
+    let objectName = 'Text1';
     if (objectName && objectName.trim()) {
       let objectId = this.service.makeId(5);
       this.selectedObjectId = objectId;

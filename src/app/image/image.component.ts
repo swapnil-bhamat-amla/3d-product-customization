@@ -55,10 +55,12 @@ export class ImageComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.addObject();
+  }
 
   addObject() {
-    let objectName = window.prompt('Please enter image name', '');
+    let objectName = 'Image1';
     if (objectName && objectName.trim()) {
       let objectId = this.service.makeId(5);
       this.selectedObjectId = objectId;
