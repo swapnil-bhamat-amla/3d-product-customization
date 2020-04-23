@@ -15,7 +15,7 @@ import {
   styleUrls: ['./preview.component.css'],
 })
 export class PreviewComponent implements OnInit, OnDestroy {
-  productUrl: string;
+  productUrl = '../../assets/img/GetImage.png';
   imageLoading = false;
   getImageAPIDomain =
     'http://integrationdevimagelab.artifi.net/Designer/Image/GetImage';
@@ -116,7 +116,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   private getUpdateProductUrl(): string {
     let widgetArr = this.generateWidgetArr();
-    console.log(widgetArr);
     let url = `${this.getImageAPIDomain}?format=${
       this.imageFormat
     }&webApiClientKey=${this.webAPIClientKey}&websiteId=${this.websiteId}&sku=${

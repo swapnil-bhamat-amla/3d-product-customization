@@ -21,17 +21,17 @@ export class OptionsComponent implements OnInit {
       {
         sku: 'Product_V_Black',
         name: 'Black',
-        hex: '#000000',
+        hex: '#1A1A1A',
       },
       {
         sku: 'Product_V_Blue',
         name: 'Blue',
-        hex: '#0000ff',
+        hex: '#365D78',
       },
       {
         sku: 'Product_V_Red',
         name: 'Red',
-        hex: '#ff0000',
+        hex: '#7C0106',
       },
     ];
   }

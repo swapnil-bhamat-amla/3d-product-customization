@@ -1,5 +1,5 @@
 <a class="thumbnail" href="#">
-  <img class="img-responsive" src="{{ productUrl }}" alt="image" />
+  <img class="img-responsive" [src]="productUrl" alt="preview image" />
   <img
     *ngIf="imageLoading"
     class="img-responsive jumbo"

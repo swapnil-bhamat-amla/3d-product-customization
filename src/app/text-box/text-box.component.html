@@ -31,12 +31,16 @@
     <div *ngIf="objectsArr.length !== 0" class="custom-item">
       <div class="custom-item-title">Text:</div>
       <div class="custom-item-body">
-        <input
-          type="text"
-          class="form-control"
-          (input)="setText()"
-          [(ngModel)]="textProps.text"
-        />
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="textProps.text"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary" (click)="setText()">Go!</button>
+          </div>
+        </div>
       </div>
     </div>
     <div *ngIf="objectsArr.length !== 0" class="custom-item">
@@ -102,8 +106,8 @@
               class="slider"
               (mouseup)="setFontSize()"
               step="1"
-              min="10"
-              max="120"
+              min="30"
+              max="60"
             />
           </div>
         </div>
