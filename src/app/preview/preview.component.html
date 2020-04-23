@@ -1,9 +1,11 @@
-<a class="thumbnail" href="#">
-  <img class="img-responsive" [src]="productUrl" alt="preview image" />
-  <img
-    *ngIf="imageLoading"
-    class="img-responsive jumbo"
-    src="../../assets/img/spinner.gif"
-    alt=""
-  />
-</a>
+<div class="container text-center">
+  <a class="thumbnail" href="#">
+    <img class="img-responsive" [src]="productUrl" alt="preview image" />
+    <img
+      *ngIf="imageLoading"
+      class="img-responsive jumbo"
+      src="../../assets/img/spinner.gif"
+      alt=""
+    />
+  </a>
+</div>
