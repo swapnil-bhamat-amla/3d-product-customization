@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConnectorService } from '../connector.service';
-import { IAction, ITextProp, ActionType } from '../views/type';
+import { IAction, ITextProp, ActionType, IImage } from '../type';
 
 @Component({
   selector: 'app-preview',
@@ -19,7 +19,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
   websiteId = '423';
   maxWidth = 500;
   maxHeight = 500;
-  widgetCollection: { [key: string]: ITextProp } = {};
+  widgetCollection: { [key: string]: ITextProp | IImage } = {};
 
   constructor(private service: ConnectorService) {}
 
@@ -30,7 +30,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
     );
   }
 
-  handleAction(action: IAction) {
+  //TODO: Remove any
+  handleAction(action: any) {
     switch (action.type) {
       case ActionType.TextBox: {
         this.widgetCollection[action.data.id] = action.data.props;
@@ -39,9 +40,18 @@ export class PreviewComponent implements OnInit, OnDestroy {
       }
       case ActionType.Image: {
         this.widgetCollection[action.data.id] = action.data.props;
+        this.updatePreviewImage();
         break;
       }
       case ActionType.Options: {
+        console.log(action.data.sku);
+        this.sku = action.data.sku;
+        this.updatePreviewImage();
+        break;
+      }
+      case ActionType.Views: {
+        this.viewCode = action.data.code;
+        this.updatePreviewImage();
         break;
       }
       default: {

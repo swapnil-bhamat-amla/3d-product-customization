@@ -6,15 +6,11 @@ import {
   ActionType,
   FontWeightType,
   FontStyleType,
-} from '../views/type';
+  IObject,
+} from '../type';
 
 interface IFontFamily {
   code: string;
-  value: string;
-}
-
-interface ITextObject {
-  id: string;
   value: string;
 }
 
@@ -26,7 +22,7 @@ interface ITextObject {
 export class TextBoxComponent implements OnInit {
   textProps: ITextProp;
   fontFamilyArr: IFontFamily[];
-  objectsArr: ITextObject[] = [];
+  objectsArr: IObject[] = [];
   selectedObjectId = '';
 
   constructor(private service: ConnectorService) {
@@ -76,7 +72,7 @@ export class TextBoxComponent implements OnInit {
   ngOnInit() {}
 
   addObject() {
-    let objectName = window.prompt('Please enter object name', '');
+    let objectName = window.prompt('Please enter text name', '');
     if (objectName && objectName.trim()) {
       let objectId = this.service.makeId(5);
       this.selectedObjectId = objectId;

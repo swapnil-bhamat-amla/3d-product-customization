@@ -1,7 +1,34 @@
 <div class="card">
-  <div class="card-header">Add images</div>
+  <div class="card-header">
+    Change logo
+    <div class="float-right">
+      <div class="input-group mb-2">
+        <select
+          [(ngModel)]="selectedObjectId"
+          *ngIf="objectsArr.length !== 0"
+          class="custom-select custom-select-sm"
+        >
+          <option *ngFor="let object of objectsArr" [value]="object.id">{{
+            object.value
+          }}</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-primary btn-sm" (click)="addObject()">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="card-body max-height p-3">
-    <ul class="gallery text-center">
+    <div
+      *ngIf="objectsArr.length === 0"
+      class="alert alert-warning"
+      role="alert"
+    >
+      Please add any object from above!
+    </div>
+    <ul *ngIf="objectsArr.length !== 0" class="gallery text-center">
       <li
         *ngFor="let clipArt of clipArtsArr"
         (click)="clipArtSelectedHnd(clipArt.code)"

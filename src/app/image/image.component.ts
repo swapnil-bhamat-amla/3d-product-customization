@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IImage, IObject, ActionType, IAction } from '../type';
+import { ConnectorService } from '../connector.service';
 
 interface IClipArt {
   path: string;
@@ -13,10 +15,22 @@ interface IClipArt {
 export class ImageComponent implements OnInit {
   selectedClipArt = '97963';
   clipArtsArr: IClipArt[] = [];
+  objectsArr: IObject[] = [];
+  imageProps: IImage;
+  selectedObjectId = '';
   clipArtBasePath =
     'http://cdnintegrationimages.azureedge.net/UserImages/137708DD-8198-4922-B167-0C90CA79F57F/4d840c81-6b06-4eb0-a11b-9f146f739888/Cliparts/Thumbnail';
 
-  constructor() {
+  constructor(private service: ConnectorService) {
+    this.imageProps = {
+      type: 'image',
+      src: this.selectedClipArt,
+      widget_key: this.service.makeId(5),
+      left: 300,
+      top: 300,
+      width: 300,
+      height: 300,
+    };
     this.clipArtsArr = [
       {
         path: `${this.clipArtBasePath}/24cda29d-50e5-404b-8057-3bfb72b0229f.png`,
@@ -43,8 +57,34 @@ export class ImageComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  addObject() {
+    let objectName = window.prompt('Please enter image name', '');
+    if (objectName && objectName.trim()) {
+      let objectId = this.service.makeId(5);
+      this.selectedObjectId = objectId;
+      this.imageProps.widget_key = objectId;
+      this.objectsArr.push({
+        id: objectId,
+        value: objectName,
+      });
+      this.sendObjectDetails();
+    }
+  }
+
   clipArtSelectedHnd(code: string) {
-    console.log(code);
     this.selectedClipArt = code;
+    this.imageProps.src = code;
+    this.sendObjectDetails();
+  }
+
+  sendObjectDetails() {
+    let updatedProp: IAction = {
+      type: ActionType.Image,
+      data: {
+        id: this.selectedObjectId,
+        props: this.imageProps,
+      },
+    };
+    this.service.emitUpdatedEvent(updatedProp);
   }
 }

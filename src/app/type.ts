@@ -1,17 +1,26 @@
 export interface IAction {
   type: ActionType;
-  data: ITextBoxAction;
+  data: IObjectAction | IAttribute | IView;
 }
 
 export enum ActionType {
   TextBox = 'TEXT-BOX',
   Image = 'IMAGE',
   Options = 'OPTIONS',
+  Views = ' VIEWS',
 }
 
-export interface ITextBoxAction {
+interface IAttribute {
+  sku: string;
+}
+
+interface IView {
+  code: string;
+}
+
+interface IObjectAction {
   id: string;
-  props: ITextProp;
+  props: ITextProp | IImage;
 }
 
 export enum FontWeightType {
@@ -24,11 +33,16 @@ export enum FontStyleType {
   Italic = 'italic',
 }
 
+export interface IObject {
+  id: string;
+  value: string;
+}
+
 export interface ITextProp {
+  type: 'textbox';
   fill: string;
   text: string;
   fontSize: number;
-  type: 'textbox';
   fontWeight: FontWeightType;
   fontStyle: FontStyleType;
   fontFamily: string;
@@ -37,4 +51,14 @@ export interface ITextProp {
   width: number;
   height: number;
   widget_key: string;
+}
+
+export interface IImage {
+  type: 'image';
+  src: string;
+  widget_key: string;
+  left: number;
+  top: number;
+  width: number;
+  height: number;
 }

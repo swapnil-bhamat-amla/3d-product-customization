@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IAction, ActionType } from '../type';
+import { ConnectorService } from '../connector.service';
 
 interface IProduct {
   sku: string;
@@ -14,7 +16,7 @@ interface IProduct {
 export class OptionsComponent implements OnInit {
   selectedSKU = '#fff';
   products: IProduct[] = [];
-  constructor() {
+  constructor(private service: ConnectorService) {
     this.products = [
       {
         sku: 'Product_V_Black',
@@ -38,6 +40,16 @@ export class OptionsComponent implements OnInit {
 
   colorChangedHnd(sku: string) {
     this.selectedSKU = sku;
-    console.log(sku);
+    this.sendSKUDetails(sku);
+  }
+
+  sendSKUDetails(sku: string) {
+    let updatedProp: IAction = {
+      type: ActionType.Options,
+      data: {
+        sku: sku,
+      },
+    };
+    this.service.emitUpdatedEvent(updatedProp);
   }
 }
