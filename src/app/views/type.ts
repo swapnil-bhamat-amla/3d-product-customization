@@ -14,14 +14,27 @@ export interface ITextBoxAction {
   props: ITextProp;
 }
 
+export enum FontWeightType {
+  Normal = 'normal',
+  Bold = 'bold',
+}
+
+export enum FontStyleType {
+  Normal = 'normal',
+  Italic = 'italic',
+}
+
 export interface ITextProp {
   fill: string;
   text: string;
   fontSize: number;
-  fontWeight: boolean;
-  fontStyle: boolean;
+  type: 'textbox';
+  fontWeight: FontWeightType;
+  fontStyle: FontStyleType;
   fontFamily: string;
   left: number;
   top: number;
+  width: number;
+  height: number;
   widget_key: string;
 }

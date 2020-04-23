@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectorService } from '../connector.service';
-import { ITextProp, IAction, ActionType } from '../views/type';
+import {
+  ITextProp,
+  IAction,
+  ActionType,
+  FontWeightType,
+  FontStyleType,
+} from '../views/type';
 
 interface IFontFamily {
   code: string;
@@ -25,15 +31,18 @@ export class TextBoxComponent implements OnInit {
 
   constructor(private service: ConnectorService) {
     this.textProps = {
-      fill: '#000000',
+      fill: '#ff0000',
       text: 'sample text',
-      fontSize: 26,
-      fontWeight: false,
-      fontStyle: false,
+      type: 'textbox',
+      fontSize: 20,
+      fontWeight: FontWeightType.Normal,
+      fontStyle: FontStyleType.Normal,
       fontFamily: 'Ubuntu',
-      left: 500.07,
-      top: 200.29,
       widget_key: this.selectedObjectId,
+      left: 200,
+      top: 200,
+      width: 300,
+      height: 150,
     };
 
     this.fontFamilyArr = [
@@ -76,6 +85,7 @@ export class TextBoxComponent implements OnInit {
         id: objectId,
         value: objectName,
       });
+      this.sendObjectDetails();
     }
   }
 
@@ -88,13 +98,27 @@ export class TextBoxComponent implements OnInit {
   }
 
   setFontStyle() {
-    this.textProps.fontStyle = !this.textProps.fontStyle;
+    this.textProps.fontStyle =
+      this.textProps.fontStyle === FontStyleType.Normal
+        ? FontStyleType.Italic
+        : FontStyleType.Normal;
     this.sendObjectDetails();
   }
 
   setBold() {
-    this.textProps.fontWeight = !this.textProps.fontWeight;
+    this.textProps.fontWeight =
+      this.textProps.fontWeight === FontWeightType.Normal
+        ? FontWeightType.Bold
+        : FontWeightType.Normal;
     this.sendObjectDetails();
+  }
+
+  isBold() {
+    return this.textProps.fontWeight === FontWeightType.Bold ? true : false;
+  }
+
+  isItalic() {
+    return this.textProps.fontStyle === FontStyleType.Italic ? true : false;
   }
 
   setFontFamily() {
