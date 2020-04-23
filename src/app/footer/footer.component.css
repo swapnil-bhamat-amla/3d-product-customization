@@ -1,0 +1,19 @@
+footer{
+    background-color: #242424;
+    left: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+    margin-top: 100px;
+}
+.support-text{
+    font-size: 18px;
+    text-align: left;
+}
+.contact-info{
+    text-align: left;
+    color: #ffffff;
+}
+.footer-logo{
+    width: 200px;
+}

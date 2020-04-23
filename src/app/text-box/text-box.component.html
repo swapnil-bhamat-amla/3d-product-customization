@@ -2,17 +2,17 @@
   <div class="card-header">
     Text Properties
     <div class="float-right">
-      <div class="input-group mb-2">
+      <div class="input-group">
         <select
           [(ngModel)]="selectedObjectId"
           *ngIf="objectsArr.length !== 0"
-          class="custom-select custom-select-sm"
+          class="mr-2 form-control-sm select-width"
         >
           <option *ngFor="let object of objectsArr" [value]="object.id">{{
             object.value
           }}</option>
         </select>
-        <div class="input-group-append">
+        <div>
           <button class="btn btn-primary btn-sm" (click)="addObject()">
             Add
           </button>

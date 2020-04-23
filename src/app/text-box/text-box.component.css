@@ -55,3 +55,6 @@
 .slider::-moz-range-thumb:hover {
   background: #002954;
 }
+.select-width{
+  width: 150px;
+}
