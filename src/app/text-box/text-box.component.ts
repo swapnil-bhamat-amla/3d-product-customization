@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-interface ITextProp {
-  fill: string;
-  text: string;
-  fontSize: number;
-  fontWeight: boolean;
-  fontStyle: boolean;
-  fontFamily: string;
-}
+import { ConnectorService } from '../connector.service';
+import { ITextProp, IAction, ActionType } from '../views/type';
 
 interface IFontFamily {
   code: string;
@@ -30,7 +23,7 @@ export class TextBoxComponent implements OnInit {
   objectsArr: ITextObject[] = [];
   selectedObjectId = '';
 
-  constructor() {
+  constructor(private service: ConnectorService) {
     this.textProps = {
       fill: '#000000',
       text: 'sample text',
@@ -38,6 +31,9 @@ export class TextBoxComponent implements OnInit {
       fontWeight: false,
       fontStyle: false,
       fontFamily: 'Ubuntu',
+      left: 500.07,
+      top: 200.29,
+      widget_key: this.selectedObjectId,
     };
 
     this.fontFamilyArr = [
@@ -73,24 +69,14 @@ export class TextBoxComponent implements OnInit {
   addObject() {
     let objectName = window.prompt('Please enter object name', '');
     if (objectName && objectName.trim()) {
-      let objectId = this.makeId(5);
+      let objectId = this.service.makeId(5);
       this.selectedObjectId = objectId;
+      this.textProps.widget_key = objectId;
       this.objectsArr.push({
         id: objectId,
         value: objectName,
       });
     }
-  }
-
-  makeId(length: number): string {
-    var result = '';
-    var characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
   }
 
   setText() {
@@ -120,6 +106,13 @@ export class TextBoxComponent implements OnInit {
   }
 
   sendObjectDetails() {
-    console.log(this.textProps, this.selectedObjectId);
+    let updatedProp: IAction = {
+      type: ActionType.TextBox,
+      data: {
+        id: this.selectedObjectId,
+        props: this.textProps,
+      },
+    };
+    this.service.emitUpdatedEvent(updatedProp);
   }
 }

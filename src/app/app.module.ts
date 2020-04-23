@@ -10,11 +10,19 @@ import { TextBoxComponent } from './text-box/text-box.component';
 import { ImageComponent } from './image/image.component';
 import { OptionsComponent } from './options/options.component';
 import { ViewsComponent } from './views/views.component';
+import { ConnectorService } from './connector.service';
 
 @NgModule({
-  declarations: [AppComponent, PreviewComponent, TextBoxComponent, ImageComponent, OptionsComponent, ViewsComponent],
+  declarations: [
+    AppComponent,
+    PreviewComponent,
+    TextBoxComponent,
+    ImageComponent,
+    OptionsComponent,
+    ViewsComponent,
+  ],
   imports: [BrowserModule, FormsModule, ColorPickerModule],
-  providers: [],
+  providers: [ConnectorService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

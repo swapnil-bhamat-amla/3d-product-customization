@@ -1,11 +1,19 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy,
+} from '@angular/core';
+import { ConnectorService } from '../connector.service';
+import { IAction } from '../views/type';
 
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.css'],
 })
-export class PreviewComponent implements OnInit, OnChanges {
+export class PreviewComponent implements OnInit, OnChanges, OnDestroy {
   selectedClipArt: string;
   selectedProduct: string;
   aspectRatioStatus: boolean;
@@ -15,7 +23,7 @@ export class PreviewComponent implements OnInit, OnChanges {
   productUrl: string;
   imageLoading = false;
 
-  constructor() {}
+  constructor(private service: ConnectorService) {}
 
   ngOnInit() {
     this.selectedProduct = 'GRWINDSOR BLACK0001';
@@ -23,6 +31,7 @@ export class PreviewComponent implements OnInit, OnChanges {
     this.selectedColor = '#fff';
     this.setDefaultCoordsObjByProductCode(this.selectedProduct);
     this.updatePreviewImage();
+    this.service.propUpdated.subscribe((data: IAction) => console.log(data));
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -35,6 +44,10 @@ export class PreviewComponent implements OnInit, OnChanges {
       );
     }
     this.updatePreviewImage();
+  }
+
+  ngOnDestroy() {
+    this.service.propUpdated.unsubscribe();
   }
 
   loadImage(url: string, callback: Function) {
@@ -55,44 +68,45 @@ export class PreviewComponent implements OnInit, OnChanges {
   }
 
   private getUpdateProductUrl(): string {
-    let url =
-      'https://integrationimagelab.artifi.net/Designer/Image/GetImage?' +
-      'format=png&' +
-      'webApiClientKey=96c1270e-046b-4d0e-a015-e11f8325df35&' +
-      'websiteId=49&' +
-      'sku=' +
-      encodeURIComponent(this.selectedProduct) +
-      '&' +
-      'viewCode=A2&';
-    if (!this.coOrdinateObject) {
-      url +=
-        'parameters=' +
-        encodeURIComponent(
-          '[{"type":"image", "src":"' +
-            this.selectedClipArt +
-            '","widget_key":"W1", "customFilters": [{"Color":"' +
-            this.selectedColor +
-            '","Opacity":1,"type":"Tint"}] }]'
-        );
-    } else {
-      url +=
-        'parameters=' +
-        encodeURIComponent(
-          '[{"type":"image", "width":"' +
-            this.coOrdinateObject.width +
-            '", "height":"' +
-            this.coOrdinateObject.height +
-            '", "top": "' +
-            this.coOrdinateObject.y +
-            '", "left": "' +
-            this.coOrdinateObject.x +
-            '", "src":"' +
-            this.selectedClipArt +
-            '","widget_key":"W1", "customFilters": [{"Color":"' +
-            this.selectedColor +
-            '","Opacity":1,"type":"Tint"}] }]'
-        );
-    }
+    let url = `http://integrationdevimagelab.artifi.net/Designer/Image/GetImage?format=png&webApiClientKey=185365d1-5cb0-4a9e-98bd-a9ce0b34cedc&websiteId=423&sku=Product_V_Black&ViewCode=Front&height=500&width=500&parameters=%5B%7B%22text%22%3A%22Amla%22%2C%22fill%22%3A%22%23FFFFFF%22%2C%22type%22%3A%22textbox%22%2C%22widget_key%22%3A%22RC%22%2C%22width%22%3A%22300%22%2C%22height%22%3A%22150%22%2C%22fontStyle%22%3A%22italic%22%2C%22fontSize%22%3A10%2C%22left%22%3A500.07%2C%22top%22%3A200.29%7D%2C%7B%22type%22%3A%22image%22%2C%22src%22%3A%2297963%22%2C%22widget_key%22%3A%22LC%22%7D%5D`;
+    // let url =
+    //   'https://integrationimagelab.artifi.net/Designer/Image/GetImage?' +
+    //   'format=png&' +
+    //   'webApiClientKey=96c1270e-046b-4d0e-a015-e11f8325df35&' +
+    //   'websiteId=49&' +
+    //   'sku=' +
+    //   encodeURIComponent(this.selectedProduct) +
+    //   '&' +
+    //   'viewCode=A2&';
+    // if (!this.coOrdinateObject) {
+    //   url +=
+    //     'parameters=' +
+    //     encodeURIComponent(
+    //       '[{"type":"image", "src":"' +
+    //         this.selectedClipArt +
+    //         '","widget_key":"W1", "customFilters": [{"Color":"' +
+    //         this.selectedColor +
+    //         '","Opacity":1,"type":"Tint"}] }]'
+    //     );
+    // } else {
+    //   url +=
+    //     'parameters=' +
+    //     encodeURIComponent(
+    //       '[{"type":"image", "width":"' +
+    //         this.coOrdinateObject.width +
+    //         '", "height":"' +
+    //         this.coOrdinateObject.height +
+    //         '", "top": "' +
+    //         this.coOrdinateObject.y +
+    //         '", "left": "' +
+    //         this.coOrdinateObject.x +
+    //         '", "src":"' +
+    //         this.selectedClipArt +
+    //         '","widget_key":"W1", "customFilters": [{"Color":"' +
+    //         this.selectedColor +
+    //         '","Opacity":1,"type":"Tint"}] }]'
+    //     );
+    // }
     return url;
   }
 
