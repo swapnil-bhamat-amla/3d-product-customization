@@ -1,7 +1,34 @@
 <div class="card">
-  <div class="card-header">Text Properties</div>
+  <div class="card-header">
+    Text Properties
+    <div class="float-right">
+      <div class="input-group mb-2">
+        <select
+          [(ngModel)]="selectedObjectId"
+          *ngIf="objectsArr.length !== 0"
+          class="custom-select custom-select-sm"
+        >
+          <option *ngFor="let object of objectsArr" [value]="object.id">{{
+            object.value
+          }}</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-primary btn-sm" (click)="addObject()">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="card-body pt-2 pb-2">
-    <div class="custom-item">
+    <div
+      *ngIf="objectsArr.length === 0"
+      class="alert alert-warning"
+      role="alert"
+    >
+      Please add any object from above!
+    </div>
+    <div *ngIf="objectsArr.length !== 0" class="custom-item">
       <div class="custom-item-title">Text:</div>
       <div class="custom-item-body">
         <input
@@ -12,7 +39,7 @@
         />
       </div>
     </div>
-    <div class="custom-item">
+    <div *ngIf="objectsArr.length !== 0" class="custom-item">
       <div class="custom-item-title">Styling:</div>
       <div class="custom-item-body">
         <div class="form-row">

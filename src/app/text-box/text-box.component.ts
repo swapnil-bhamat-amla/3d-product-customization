@@ -14,6 +14,11 @@ interface IFontFamily {
   value: string;
 }
 
+interface ITextObject {
+  id: string;
+  value: string;
+}
+
 @Component({
   selector: 'app-text-box',
   templateUrl: './text-box.component.html',
@@ -22,6 +27,8 @@ interface IFontFamily {
 export class TextBoxComponent implements OnInit {
   textProps: ITextProp;
   fontFamilyArr: IFontFamily[];
+  objectsArr: ITextObject[] = [];
+  selectedObjectId = '';
 
   constructor() {
     this.textProps = {
@@ -63,33 +70,56 @@ export class TextBoxComponent implements OnInit {
 
   ngOnInit() {}
 
+  addObject() {
+    let objectName = window.prompt('Please enter object name', '');
+    if (objectName && objectName.trim()) {
+      let objectId = this.makeId(5);
+      this.selectedObjectId = objectId;
+      this.objectsArr.push({
+        id: objectId,
+        value: objectName,
+      });
+    }
+  }
+
+  makeId(length: number): string {
+    var result = '';
+    var characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   setText() {
-    this.setActiveStyle('text', this.textProps.text);
+    this.sendObjectDetails();
   }
 
   setFontSize() {
-    this.setActiveStyle('fontSize', +this.textProps.fontSize);
+    this.sendObjectDetails();
   }
 
   setFontStyle() {
     this.textProps.fontStyle = !this.textProps.fontStyle;
-    this.setActiveStyle('fontStyle', this.textProps.fontStyle ? 'italic' : '');
+    this.sendObjectDetails();
   }
 
   setBold() {
     this.textProps.fontWeight = !this.textProps.fontWeight;
-    this.setActiveStyle('fontWeight', this.textProps.fontWeight ? 'bold' : '');
+    this.sendObjectDetails();
   }
 
   setFontFamily() {
-    this.setActiveStyle('fontFamily', this.textProps.fontFamily);
+    this.sendObjectDetails();
   }
 
   setFill() {
-    this.setActiveStyle('fill', this.textProps.fill);
+    this.sendObjectDetails();
   }
 
-  setActiveStyle(styleName: string, value: string | number) {
-    console.log(this.textProps);
+  sendObjectDetails() {
+    console.log(this.textProps, this.selectedObjectId);
   }
 }
