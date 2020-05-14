@@ -13,10 +13,10 @@ export class ThreeDPreviewComponent implements OnInit {
   @ViewChild('rendererWrapper', { static: true })
   public rendererWrapper: ElementRef<HTMLDivElement>;
 
-  public constructor(private threeDServ: ThreeDPreviewService) {}
+  public constructor(private threeDService: ThreeDPreviewService) {}
 
   public ngOnInit(): void {
-    this.threeDServ.createScene(this.rendererWrapper, this.rendererCanvas);
-    this.threeDServ.animate();
+    this.threeDService.createScene(this.rendererWrapper, this.rendererCanvas);
+    this.threeDService.animate();
   }
 }

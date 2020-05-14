@@ -5,9 +5,9 @@ import { Injectable, ElementRef, OnDestroy, NgZone } from '@angular/core';
   providedIn: 'root',
 })
 export class ThreeDPreviewService implements OnDestroy {
-  private canvas: HTMLCanvasElement;
-  private container: HTMLDivElement;
   private renderer: THREE.WebGLRenderer;
+  private RENDERER_WIDTH: number;
+  private RENDERER_HEIGHT: number;
   private camera: THREE.PerspectiveCamera;
   private scene: THREE.Scene;
   private light: THREE.AmbientLight;
@@ -28,39 +28,57 @@ export class ThreeDPreviewService implements OnDestroy {
     container: ElementRef<HTMLDivElement>,
     canvas: ElementRef<HTMLCanvasElement>
   ): void {
-    // The first step is to get the reference of the canvas element from our HTML document
-    this.canvas = canvas.nativeElement;
-    this.container = container.nativeElement;
+    this.setRendererDimension(container.nativeElement);
+    this.attachRenderer(canvas.nativeElement);
+    this.addScene();
+    this.addCamera();
+    this.addLights();
+    this.addCube();
+  }
 
+  setRendererDimension(containerEle: HTMLDivElement) {
+    this.RENDERER_WIDTH = containerEle.clientWidth;
+    this.RENDERER_HEIGHT = containerEle.clientHeight;
+  }
+
+  attachRenderer(canvasEle: HTMLCanvasElement) {
     this.renderer = new THREE.WebGLRenderer({
-      canvas: this.canvas,
+      canvas: canvasEle,
       alpha: true, // transparent background
       antialias: true, // smooth edges
     });
-    this.renderer.setSize(
-      this.container.clientWidth,
-      this.container.clientHeight
-    );
+    this.renderer.setSize(this.RENDERER_WIDTH, this.RENDERER_HEIGHT);
+  }
 
+  addScene() {
     // create the scene
     this.scene = new THREE.Scene();
+  }
 
+  addCamera() {
     this.camera = new THREE.PerspectiveCamera(
       75,
-      this.container.clientWidth / this.container.clientHeight,
+      this.RENDERER_WIDTH / this.RENDERER_HEIGHT,
       0.1,
       1000
     );
     this.camera.position.z = 5;
     this.scene.add(this.camera);
+  }
 
+  addLights() {
     // soft white light
     this.light = new THREE.AmbientLight(0x404040);
     this.light.position.z = 10;
     this.scene.add(this.light);
+  }
 
+  addCube() {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x00ff00,
+      wireframe: true,
+    });
     this.cube = new THREE.Mesh(geometry, material);
     this.scene.add(this.cube);
   }
@@ -94,8 +112,8 @@ export class ThreeDPreviewService implements OnDestroy {
   }
 
   public resize(): void {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
+    const width = this.RENDERER_WIDTH;
+    const height = this.RENDERER_HEIGHT;
 
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
