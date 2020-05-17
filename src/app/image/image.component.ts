@@ -20,7 +20,7 @@ export class ImageComponent implements OnInit {
   selectedObjectId = '';
   clipArtBasePath =
     'http://cdnintegrationimages.azureedge.net/UserImages/137708DD-8198-4922-B167-0C90CA79F57F/4d840c81-6b06-4eb0-a11b-9f146f739888/Cliparts/Thumbnail';
-  selectedImagePath = `${this.clipArtBasePath}/24cda29d-50e5-404b-8057-3bfb72b0229f.png`;
+  selectedImagePath = `../../assets/img/amla.jpg`;
   constructor(private service: ConnectorService) {
     this.imageProps = {
       type: 'image',
@@ -34,15 +34,15 @@ export class ImageComponent implements OnInit {
     };
     this.clipArtsArr = [
       {
-        path: `${this.clipArtBasePath}/24cda29d-50e5-404b-8057-3bfb72b0229f.png`,
-        code: '97963',
+        path: this.selectedImagePath,
+        code: this.selectedClipArt,
       },
       {
-        path: `${this.clipArtBasePath}/c8dbecaf-45c6-47fc-8c3b-dead82e50655.jpg`,
+        path: `../../assets/img/logo10.png`,
         code: '97966',
       },
       {
-        path: `${this.clipArtBasePath}/edc94698-12f2-41b3-99c4-9a8558ffde8e.png`,
+        path: `../../assets/img/logo11.png`,
         code: '101098',
       },
       {

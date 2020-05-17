@@ -37,7 +37,8 @@ export class ThreeDPreviewComponent implements OnInit {
   performAction(action: any) {
     switch (action.type) {
       case ActionType.Image: {
-        console.log(action.data.props);
+        let { url } = action.data.props;
+        this.threeDService.mapImageOnMaterial('logo', url);
         break;
       }
       case ActionType.Options: {

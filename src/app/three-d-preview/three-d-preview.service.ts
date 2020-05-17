@@ -117,6 +117,24 @@ export class ThreeDPreviewService implements OnDestroy {
     });
   }
 
+  public mapImageOnMaterial(childId: string, imagePath: string) {
+    let texture = new THREE.TextureLoader().load(imagePath);
+    texture.repeat.set(2, 2);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+
+    let new_mtl = new THREE.MeshPhongMaterial({
+      map: texture,
+      shininess: 60,
+    });
+    //TODO: Remove any
+    this.model.traverse((o: any) => {
+      if (o.isMesh && o.name.includes(childId) && imagePath) {
+        o.material = new_mtl;
+      }
+    });
+  }
+
   private addControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.autoRotate = true;
