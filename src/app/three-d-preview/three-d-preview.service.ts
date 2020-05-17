@@ -17,9 +17,9 @@ export class ThreeDPreviewService implements OnDestroy {
 
   private frameId: number = null;
 
-  public constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone) {}
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     if (this.frameId != null) {
       cancelAnimationFrame(this.frameId);
     }
@@ -38,7 +38,6 @@ export class ThreeDPreviewService implements OnDestroy {
     this.addModel(modelPath).then(
       (model: THREE.Group) => {
         this.model = model;
-        this.mapColorToMaterial();
       },
       (error: ErrorEvent) => {
         console.error(error);
@@ -47,12 +46,12 @@ export class ThreeDPreviewService implements OnDestroy {
     this.addControls();
   }
 
-  setRendererDimension(containerEle: HTMLDivElement) {
+  private setRendererDimension(containerEle: HTMLDivElement) {
     this.RENDERER_WIDTH = containerEle.clientWidth;
     this.RENDERER_HEIGHT = containerEle.clientHeight;
   }
 
-  attachRenderer(canvasEle: HTMLCanvasElement) {
+  private attachRenderer(canvasEle: HTMLCanvasElement) {
     this.renderer = new THREE.WebGLRenderer({
       canvas: canvasEle,
       alpha: true, // transparent background
@@ -64,12 +63,12 @@ export class ThreeDPreviewService implements OnDestroy {
     this.renderer.outputEncoding = THREE.sRGBEncoding;
   }
 
-  addScene() {
+  private addScene() {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xf1f1f1);
   }
 
-  addCamera() {
+  private addCamera() {
     this.camera = new THREE.PerspectiveCamera(
       75,
       this.RENDERER_WIDTH / this.RENDERER_HEIGHT,
@@ -80,7 +79,7 @@ export class ThreeDPreviewService implements OnDestroy {
     this.scene.add(this.camera);
   }
 
-  addLights() {
+  private addLights() {
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     this.scene.add(ambientLight);
 
@@ -89,7 +88,7 @@ export class ThreeDPreviewService implements OnDestroy {
     this.camera.add(dirLight);
   }
 
-  addModel(modelPath: string): Promise<THREE.Group> {
+  private addModel(modelPath: string): Promise<THREE.Group> {
     return new Promise((resolve, reject) => {
       var loader = new GLTFLoader();
       loader.load(
@@ -109,26 +108,16 @@ export class ThreeDPreviewService implements OnDestroy {
     });
   }
 
-  mapColorToMaterial() {
-    const INITIAL_MAP = [
-      { childID: 'bottle', color: 0xffff00 },
-      { childID: 'cap', color: 0xffffff },
-    ];
-    for (let object of INITIAL_MAP) {
-      this.mapMaterial(object.childID, object.color);
-    }
-  }
-
-  mapMaterial(type: string, hexColor: number = 0) {
+  public mapColorToMaterial(childId: string, hexColor: number = 0) {
     //TODO: Remove any
     this.model.traverse((o: any) => {
-      if (o.isMesh && o.name.includes(type) && hexColor) {
+      if (o.isMesh && o.name.includes(childId) && hexColor) {
         o.material.color.setHex(hexColor);
       }
     });
   }
 
-  addControls() {
+  private addControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.autoRotate = true;
     this.controls.autoRotateSpeed = -10;
@@ -153,7 +142,7 @@ export class ThreeDPreviewService implements OnDestroy {
     });
   }
 
-  public render(): void {
+  private render(): void {
     this.frameId = requestAnimationFrame(() => {
       this.render();
     });
@@ -161,7 +150,7 @@ export class ThreeDPreviewService implements OnDestroy {
     this.renderer.render(this.scene, this.camera);
   }
 
-  public resize(): void {
+  private resize(): void {
     this.camera.aspect = this.RENDERER_WIDTH / this.RENDERER_HEIGHT;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.RENDERER_WIDTH, this.RENDERER_HEIGHT);
