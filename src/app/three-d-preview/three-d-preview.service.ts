@@ -118,20 +118,27 @@ export class ThreeDPreviewService implements OnDestroy {
   }
 
   public mapImageOnMaterial(childId: string, imagePath: string) {
-    let texture = new THREE.TextureLoader().load(imagePath);
-    texture.repeat.set(2, 2);
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
+    const textureLoader = new THREE.TextureLoader();
 
-    let new_mtl = new THREE.MeshPhongMaterial({
-      map: texture,
-      shininess: 60,
-    });
-    //TODO: Remove any
-    this.model.traverse((o: any) => {
-      if (o.isMesh && o.name.includes(childId) && imagePath) {
-        o.material = new_mtl;
-      }
+    textureLoader.crossOrigin = '';
+    const myTexture = textureLoader.load(imagePath, (texture) => {
+      texture.flipY = false;
+      texture.minFilter = THREE.NearestFilter;
+      texture.needsUpdate = true;
+      const newMaterial = new THREE.MeshPhongMaterial({
+        map: texture,
+        transparent: true,
+        shininess: 40,
+      });
+
+      //TODO: Remove any
+      this.model.traverse((o: any) => {
+        if (o.isMesh && o.name.includes(childId) && imagePath) {
+          console.log(o, imagePath);
+          o.material.map = texture;
+          o.material.needsUpdate = true;
+        }
+      });
     });
   }
 
