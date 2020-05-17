@@ -20,7 +20,7 @@ export class ImageComponent implements OnInit {
   selectedObjectId = '';
   clipArtBasePath =
     'http://cdnintegrationimages.azureedge.net/UserImages/137708DD-8198-4922-B167-0C90CA79F57F/4d840c81-6b06-4eb0-a11b-9f146f739888/Cliparts/Thumbnail';
-
+  selectedImagePath = `${this.clipArtBasePath}/24cda29d-50e5-404b-8057-3bfb72b0229f.png`;
   constructor(private service: ConnectorService) {
     this.imageProps = {
       type: 'image',
@@ -30,6 +30,7 @@ export class ImageComponent implements OnInit {
       height: 90,
       left: 470.07,
       top: 230.29,
+      url: this.selectedImagePath,
     };
     this.clipArtsArr = [
       {
@@ -72,9 +73,10 @@ export class ImageComponent implements OnInit {
     }
   }
 
-  clipArtSelectedHnd(code: string) {
+  clipArtSelectedHnd(code: string, path: string) {
     this.selectedClipArt = code;
     this.imageProps.src = code;
+    this.imageProps.url = path;
     this.sendObjectDetails();
   }
 

@@ -62,4 +62,5 @@ export interface IImage {
   top: number;
   width: number;
   height: number;
+  url: string;
 }

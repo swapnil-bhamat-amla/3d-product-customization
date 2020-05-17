@@ -31,7 +31,7 @@
     <ul *ngIf="objectsArr.length !== 0" class="gallery text-center">
       <li
         *ngFor="let clipArt of clipArtsArr"
-        (click)="clipArtSelectedHnd(clipArt.code)"
+        (click)="clipArtSelectedHnd(clipArt.code, clipArt.path)"
         [ngClass]="{ selected: selectedClipArt === clipArt.code }"
       >
         <a href="#" class="thumbnail"
