@@ -8,7 +8,7 @@
           class="swatch swatch-clickable"
           [ngClass]="{ selected: selectedSKU === product.sku }"
           [style.background-color]="product.hex"
-          (click)="colorChangedHnd(product.sku)"
+          (click)="colorChangedHnd(product.sku, product.hex)"
         ></div>
       </li>
     </ul>

@@ -38,16 +38,17 @@ export class OptionsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  colorChangedHnd(sku: string) {
+  colorChangedHnd(sku: string, hex: string) {
     this.selectedSKU = sku;
-    this.sendSKUDetails(sku);
+    this.sendSKUDetails(sku, hex);
   }
 
-  sendSKUDetails(sku: string) {
+  sendSKUDetails(sku: string, hex: string) {
     let updatedProp: IAction = {
       type: ActionType.Options,
       data: {
         sku: sku,
+        hex: hex,
       },
     };
     this.service.emitUpdatedEvent(updatedProp);

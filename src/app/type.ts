@@ -12,6 +12,7 @@ export enum ActionType {
 
 interface IAttribute {
   sku: string;
+  hex: string;
 }
 
 interface IView {
