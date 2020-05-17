@@ -16,7 +16,7 @@ export class ThreeDPreviewComponent implements OnInit {
   public constructor(private threeDService: ThreeDPreviewService) {}
 
   public ngOnInit(): void {
-    let model = '../../assets/model/chair.glb';
+    let model = '../../assets/model/bottle.glb';
     this.threeDService.createScene(
       this.rendererWrapper,
       this.rendererCanvas,

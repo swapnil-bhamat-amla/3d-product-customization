@@ -12,7 +12,6 @@ export class ThreeDPreviewService implements OnDestroy {
   private RENDERER_HEIGHT: number;
   private camera: THREE.PerspectiveCamera;
   private scene: THREE.Scene;
-  private cube: THREE.Mesh;
   private model: THREE.Group;
   private controls: OrbitControls;
 
@@ -36,8 +35,15 @@ export class ThreeDPreviewService implements OnDestroy {
     this.addScene();
     this.addCamera();
     this.addLights();
-    this.addModel(modelPath);
-    this.addFloor();
+    this.addModel(modelPath).then(
+      (model: THREE.Group) => {
+        this.model = model;
+        this.mapColorToMaterial();
+      },
+      (error: ErrorEvent) => {
+        console.error(error);
+      }
+    );
     this.addControls();
   }
 
@@ -53,118 +59,80 @@ export class ThreeDPreviewService implements OnDestroy {
       antialias: true, // smooth edges
     });
     this.renderer.setSize(this.RENDERER_WIDTH, this.RENDERER_HEIGHT);
-    this.renderer.shadowMap.enabled = true;
     this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.physicallyCorrectLights = true;
+    this.renderer.outputEncoding = THREE.sRGBEncoding;
   }
 
   addScene() {
-    const BACKGROUND_COLOR = 0xf1f1f1;
-    // Init the scene
     this.scene = new THREE.Scene();
-    // Set background
-    this.scene.background = new THREE.Color(BACKGROUND_COLOR);
-    this.scene.fog = new THREE.Fog(BACKGROUND_COLOR, 20, 100);
+    this.scene.background = new THREE.Color(0xf1f1f1);
   }
 
   addCamera() {
     this.camera = new THREE.PerspectiveCamera(
       75,
       this.RENDERER_WIDTH / this.RENDERER_HEIGHT,
-      0.1,
+      0.01,
       1000
     );
-    this.camera.position.z = 5;
-    this.camera.position.x = 0;
+    this.camera.position.z = 4; // How far from object.
     this.scene.add(this.camera);
   }
 
   addLights() {
-    // Add lights
-    var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.61);
-    hemiLight.position.set(0, 50, 0);
-    this.scene.add(hemiLight);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    this.scene.add(ambientLight);
 
-    var dirLight = new THREE.DirectionalLight(0xffffff, 0.54);
-    dirLight.position.set(-8, 12, 8);
-    dirLight.castShadow = true;
-    dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
-    this.scene.add(dirLight);
+    var dirLight = new THREE.DirectionalLight(0xffffff, 2);
+    dirLight.position.set(0.5, 0, 0.866);
+    this.camera.add(dirLight);
   }
 
-  addCube() {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x00ff00,
-      wireframe: true,
+  addModel(modelPath: string): Promise<THREE.Group> {
+    return new Promise((resolve, reject) => {
+      var loader = new GLTFLoader();
+      loader.load(
+        modelPath,
+        (gltf: GLTF) => {
+          let model = gltf.scene;
+          model.scale.set(2, 2, 2);
+          model.position.y = -2;
+          this.scene.add(model);
+          resolve(model);
+        },
+        undefined,
+        function (error: ErrorEvent) {
+          reject(error);
+        }
+      );
     });
-    this.cube = new THREE.Mesh(geometry, material);
-    this.scene.add(this.cube);
   }
 
-  addModel(modelPath: string) {
-    // Init the object loader
-    var loader = new GLTFLoader();
+  mapColorToMaterial() {
+    const INITIAL_MAP = [
+      { childID: 'bottle', color: 0xffff00 },
+      { childID: 'cap', color: 0xffffff },
+    ];
+    for (let object of INITIAL_MAP) {
+      this.mapMaterial(object.childID, object.color);
+    }
+  }
 
-    loader.load(
-      modelPath,
-      (gltf: GLTF) => {
-        this.model = gltf.scene;
-
-        //TODO: Remove any
-        this.model.traverse((o: any) => {
-          if (o.isMesh) {
-            o.castShadow = true;
-            o.receiveShadow = true;
-          }
-        });
-
-        // Set the models initial scale
-        this.model.scale.set(2, 2, 2);
-        this.model.rotation.y = Math.PI;
-
-        // Offset the y position a bit
-        this.model.position.y = -1;
-
-        // Set initial textures
-        // for (let object of INITIAL_MAP) {
-        //   initColor(theModel, object.childID, object.mtl);
-        // }
-
-        // Add the model to the scene
-        this.scene.add(this.model);
-      },
-      undefined,
-      function (error: ErrorEvent) {
-        console.error(error);
+  mapMaterial(type: string, hexColor: number = 0) {
+    //TODO: Remove any
+    this.model.traverse((o: any) => {
+      if (o.isMesh && o.name.includes(type) && hexColor) {
+        o.material.color.setHex(hexColor);
       }
-    );
-  }
-
-  addFloor() {
-    // Floor
-    var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 1, 1);
-    var floorMaterial = new THREE.MeshPhongMaterial({
-      color: 0xeeeeee,
-      shininess: 0,
     });
-
-    var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-    floor.rotation.x = -0.5 * Math.PI;
-    floor.receiveShadow = true;
-    floor.position.y = -1;
-    this.scene.add(floor);
   }
 
   addControls() {
-    // Add controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.maxPolarAngle = Math.PI / 2;
-    this.controls.minPolarAngle = Math.PI / 3;
-    this.controls.enableDamping = true;
-    this.controls.enablePan = false;
-    this.controls.dampingFactor = 0.1;
-    this.controls.autoRotate = false; // Toggle this if you'd like the chair to automatically rotate
-    this.controls.autoRotateSpeed = 0.2; // 30
+    this.controls.autoRotate = true;
+    this.controls.autoRotateSpeed = -10;
+    this.controls.screenSpacePanning = true;
   }
 
   public animate(): void {
