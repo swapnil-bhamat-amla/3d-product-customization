@@ -22,7 +22,7 @@ export class ThreeDPreviewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    let model = '../../assets/model/bottle.glb';
+    let model = '../../assets/model/bottle.gltf';
     this.threeDService.createScene(
       this.rendererWrapper,
       this.rendererCanvas,

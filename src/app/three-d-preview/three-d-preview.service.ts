@@ -121,30 +121,32 @@ export class ThreeDPreviewService implements OnDestroy {
     const textureLoader = new THREE.TextureLoader();
 
     textureLoader.crossOrigin = '';
-    const myTexture = textureLoader.load(imagePath, (texture) => {
-      texture.flipY = false;
-      texture.minFilter = THREE.NearestFilter;
-      texture.needsUpdate = true;
-      const newMaterial = new THREE.MeshPhongMaterial({
-        map: texture,
-        transparent: true,
-        shininess: 40,
-      });
 
-      //TODO: Remove any
-      this.model.traverse((o: any) => {
-        if (o.isMesh && o.name.includes(childId) && imagePath) {
-          console.log(o, imagePath);
-          o.material.map = texture;
-          o.material.needsUpdate = true;
-        }
-      });
-    });
+    const myTexture = textureLoader.load(
+      imagePath,
+      (texture: THREE.Texture) => {
+        texture.flipY = false;
+        texture.encoding = THREE.sRGBEncoding;
+        let material = new THREE.MeshPhongMaterial({
+          map: texture,
+          transparent: true,
+          shininess: 40,
+        });
+
+        this.model.traverse((o: any) => {
+          if (o.isMesh && o.name.includes(childId) && imagePath) {
+            o.material = material;
+            //o.material.map = texture;
+            o.material.needsUpdate = true;
+          }
+        });
+      }
+    );
   }
 
   private addControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.autoRotate = true;
+    this.controls.autoRotate = false;
     this.controls.autoRotateSpeed = -10;
     this.controls.screenSpacePanning = true;
   }
