@@ -22,7 +22,7 @@ export class ThreeDPreviewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    let model = '../../assets/model/bottle.gltf';
+    let model = '../../assets/model/dummy-chair.glb';
     this.threeDService.createScene(
       this.rendererWrapper,
       this.rendererCanvas,
@@ -38,13 +38,13 @@ export class ThreeDPreviewComponent implements OnInit {
     switch (action.type) {
       case ActionType.Image: {
         let { url } = action.data.props;
-        this.threeDService.mapImageOnMaterial('logo', url);
+        this.threeDService.mapImageOnMaterial('front', url);
         break;
       }
       case ActionType.Options: {
         let { hex } = action.data;
         hex = hex.toString().replace('#', '0x');
-        this.threeDService.mapColorToMaterial('bottle', hex);
+        this.threeDService.mapColorToMaterial('cushions', hex);
         break;
       }
       default: {

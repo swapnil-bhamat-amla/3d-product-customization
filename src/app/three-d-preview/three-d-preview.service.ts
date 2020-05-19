@@ -88,7 +88,10 @@ export class ThreeDPreviewService implements OnDestroy {
     this.camera.add(dirLight);
   }
 
-  private addModel(modelPath: string): Promise<THREE.Group> {
+  private addModel(
+    modelPath: string,
+    resetMaterial: Array<string> = ['logo']
+  ): Promise<THREE.Group> {
     return new Promise((resolve, reject) => {
       var loader = new GLTFLoader();
       loader.load(
@@ -97,6 +100,17 @@ export class ThreeDPreviewService implements OnDestroy {
           let model = gltf.scene;
           model.scale.set(2, 2, 2);
           model.position.y = -2;
+          // const mtl = new THREE.MeshPhongMaterial({
+          //   color: 0xf1f1f1,
+          //   shininess: 10,
+          // });
+          // model.traverse((o: any) => {
+          //   if (o.isMesh) {
+          //     if (o.name.includes('logo')) {
+          //       o.material = mtl;
+          //     }
+          //   }
+          // });
           this.scene.add(model);
           resolve(model);
         },
@@ -118,25 +132,49 @@ export class ThreeDPreviewService implements OnDestroy {
   }
 
   public mapImageOnMaterial(childId: string, imagePath: string) {
+    //Method 1
+    // let canvas = document.createElement('canvas'),
+    //   ctx = canvas.getContext('2d');
+    // let img = new Image();
+    // img.onload = () => {
+    //   console.log(img.width, img.height);
+    //   canvas.width = img.width;
+    //   canvas.height = img.height;
+    //   ctx.drawImage(img, 0, 0);
+    //   var texture = new THREE.CanvasTexture(canvas);
+    //   texture.needsUpdate = true;
+    //   texture.flipY = false;
+    //   // texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    //   texture.encoding = THREE.sRGBEncoding;
+    //   this.model.traverse((o: any) => {
+    //     if (o.isMesh && o.name.includes(childId) && imagePath) {
+    //       //o.material = material;
+    //       o.material.map = texture;
+    //       o.material.transparent = true;
+    //       o.material.needsUpdate = true;
+    //     }
+    //   });
+    // };
+    // img.src = imagePath;
+    //Method 2
     const textureLoader = new THREE.TextureLoader();
-
     textureLoader.crossOrigin = '';
-
     const myTexture = textureLoader.load(
       imagePath,
       (texture: THREE.Texture) => {
         texture.flipY = false;
         texture.encoding = THREE.sRGBEncoding;
+        texture.repeat.set(4, 3);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+
         let material = new THREE.MeshPhongMaterial({
           map: texture,
           transparent: true,
-          shininess: 40,
         });
-
         this.model.traverse((o: any) => {
           if (o.isMesh && o.name.includes(childId) && imagePath) {
             o.material = material;
-            //o.material.map = texture;
             o.material.needsUpdate = true;
           }
         });
