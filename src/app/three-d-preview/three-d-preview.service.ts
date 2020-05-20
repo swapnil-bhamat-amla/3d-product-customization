@@ -132,31 +132,6 @@ export class ThreeDPreviewService implements OnDestroy {
   }
 
   public mapImageOnMaterial(childId: string, imagePath: string) {
-    //Method 1
-    // let canvas = document.createElement('canvas'),
-    //   ctx = canvas.getContext('2d');
-    // let img = new Image();
-    // img.onload = () => {
-    //   console.log(img.width, img.height);
-    //   canvas.width = img.width;
-    //   canvas.height = img.height;
-    //   ctx.drawImage(img, 0, 0);
-    //   var texture = new THREE.CanvasTexture(canvas);
-    //   texture.needsUpdate = true;
-    //   texture.flipY = false;
-    //   // texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    //   texture.encoding = THREE.sRGBEncoding;
-    //   this.model.traverse((o: any) => {
-    //     if (o.isMesh && o.name.includes(childId) && imagePath) {
-    //       //o.material = material;
-    //       o.material.map = texture;
-    //       o.material.transparent = true;
-    //       o.material.needsUpdate = true;
-    //     }
-    //   });
-    // };
-    // img.src = imagePath;
-    //Method 2
     const textureLoader = new THREE.TextureLoader();
     textureLoader.crossOrigin = '';
     const myTexture = textureLoader.load(
@@ -164,18 +139,14 @@ export class ThreeDPreviewService implements OnDestroy {
       (texture: THREE.Texture) => {
         texture.flipY = false;
         texture.encoding = THREE.sRGBEncoding;
-        texture.repeat.set(4, 3);
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-
-        let material = new THREE.MeshPhongMaterial({
-          map: texture,
-          transparent: true,
-        });
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        texture.offset.set(0, 0);
+        texture.repeat.set(20, 20);
         this.model.traverse((o: any) => {
           if (o.isMesh && o.name.includes(childId) && imagePath) {
-            o.material = material;
+            o.material.map = texture;
             o.material.needsUpdate = true;
+            o.material.transparent = true;
           }
         });
       }
