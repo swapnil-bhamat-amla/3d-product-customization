@@ -96,13 +96,13 @@
             "name" : "cap",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
-                    0.800000011920929,
-                    0.800000011920929,
-                    0.800000011920929,
+                    1,
+                    1,
+                    1,
                     1
                 ],
-                "metallicFactor" : 0.804347813129425,
-                "roughnessFactor" : 0.20108696818351746
+                "metallicFactor" : 0.75,
+                "roughnessFactor" : 0.30000001192092896
             }
         },
         {
@@ -116,12 +116,12 @@
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.7991032600402832,
-                    0.2849579155445099,
-                    0.79624342918396,
+                    0.5258760452270508,
+                    0.724529504776001,
                     1
                 ],
-                "metallicFactor" : 0,
-                "roughnessFactor" : 0.5
+                "metallicFactor" : 0.699999988079071,
+                "roughnessFactor" : 0.30000001192092896
             }
         }
     ],
