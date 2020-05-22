@@ -1,6 +1,12 @@
 .thumbnail {
   width: 65px;
   height: 65px;
+  display: inline-block;
+  list-style: none;
+  margin: 0 10px 10px 0;
+  padding: 10px;
+  border: 2px solid #002954;
+  border-radius: 5px;
 }
 
 .thumbnail img {
@@ -11,5 +17,6 @@
 
 .max-height {
   overflow: auto;
-  max-height: 150px;
+  max-height: 70px;
+  overflow: hidden;
 }

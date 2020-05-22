@@ -1,9 +1,30 @@
 <div class="card">
   <div class="card-header">
     Upload Logo
+    <div class="float-right text-info">
+      <small>( JPEG format only )</small>
+    </div>
   </div>
-  <div class="card-body max-height p-3">
-    <input type="file" (change)="onSelectFile($event)" />
-    <a class="thumbnail"><img class="img-responsive" [src]="url" /></a>
+  <div class="card-body p-3">
+    <div class="row">
+      <div class="col-9">
+        <div class="custom-file mb-3">
+          <input
+            type="file"
+            class="custom-file-input"
+            id="customFile"
+            name="filename"
+            (change)="onSelectFile($event)"
+            accept="image/jpeg"
+          />
+          <label class="custom-file-label" for="customFile">{{
+            fileName
+          }}</label>
+        </div>
+      </div>
+      <div class="col-3 max-height text-center">
+        <a class="thumbnail"><img class="img-responsive" [src]="url" /></a>
+      </div>
+    </div>
   </div>
 </div>
