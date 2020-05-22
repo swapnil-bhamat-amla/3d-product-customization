@@ -88,10 +88,7 @@ export class ThreeDPreviewService implements OnDestroy {
     this.camera.add(dirLight);
   }
 
-  private addModel(
-    modelPath: string,
-    resetMaterial: Array<string> = ['logo']
-  ): Promise<THREE.Group> {
+  private addModel(modelPath: string): Promise<THREE.Group> {
     return new Promise((resolve, reject) => {
       var loader = new GLTFLoader();
       loader.load(
@@ -100,17 +97,6 @@ export class ThreeDPreviewService implements OnDestroy {
           let model = gltf.scene;
           model.scale.set(2, 2, 2);
           model.position.y = -2;
-          // const mtl = new THREE.MeshPhongMaterial({
-          //   color: 0xf1f1f1,
-          //   shininess: 10,
-          // });
-          // model.traverse((o: any) => {
-          //   if (o.isMesh) {
-          //     if (o.name.includes('logo')) {
-          //       o.material = mtl;
-          //     }
-          //   }
-          // });
           this.scene.add(model);
           resolve(model);
         },
@@ -139,9 +125,7 @@ export class ThreeDPreviewService implements OnDestroy {
       (texture: THREE.Texture) => {
         texture.flipY = false;
         texture.encoding = THREE.sRGBEncoding;
-        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-        texture.offset.set(0, 0);
-        texture.repeat.set(20, 20);
+
         this.model.traverse((o: any) => {
           if (o.isMesh && o.name.includes(childId) && imagePath) {
             o.material.map = texture;

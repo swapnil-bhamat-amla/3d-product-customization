@@ -20,7 +20,7 @@ export class ImageComponent implements OnInit {
   selectedObjectId = '';
   clipArtBasePath =
     'http://cdnintegrationimages.azureedge.net/UserImages/137708DD-8198-4922-B167-0C90CA79F57F/4d840c81-6b06-4eb0-a11b-9f146f739888/Cliparts/Thumbnail';
-  selectedImagePath = `../../assets/img/amla.jpg`;
+  selectedImagePath = `../../assets/img/logos/Amla.jpg`;
   constructor(private service: ConnectorService) {
     this.imageProps = {
       type: 'image',
@@ -38,19 +38,19 @@ export class ImageComponent implements OnInit {
         code: this.selectedClipArt,
       },
       {
-        path: `../../assets/img/logo10.png`,
+        path: `../../assets/img/logos/Perrier.jpg`,
         code: '97966',
       },
       {
-        path: `../../assets/img/logo11.png`,
+        path: `../../assets/img/logos/Evian.jpg`,
         code: '101098',
       },
       {
-        path: `${this.clipArtBasePath}/af0fbfa7-540f-44b8-b0f8-97cf7971f8b3.png`,
+        path: `../../assets/img/logos/Nestle-Waters.jpg`,
         code: '97962',
       },
       {
-        path: `${this.clipArtBasePath}/ed39c603-1381-4e6e-8d3c-3138cbc64bbb.png`,
+        path: `../../assets/img/logos/Yeti.jpg`,
         code: '97965',
       },
     ];
