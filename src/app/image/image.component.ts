@@ -13,7 +13,7 @@ interface IClipArt {
   styleUrls: ['./image.component.css'],
 })
 export class ImageComponent implements OnInit {
-  selectedClipArt = '97963';
+  selectedClipArt = '';
   clipArtsArr: IClipArt[] = [];
   objectsArr: IObject[] = [];
   imageProps: IImage;
@@ -24,7 +24,7 @@ export class ImageComponent implements OnInit {
   constructor(private service: ConnectorService) {
     this.imageProps = {
       type: 'image',
-      src: this.selectedClipArt,
+      src: '97963',
       widget_key: 'LC',
       width: 90,
       height: 90,
@@ -34,8 +34,8 @@ export class ImageComponent implements OnInit {
     };
     this.clipArtsArr = [
       {
-        path: this.selectedImagePath,
-        code: this.selectedClipArt,
+        path: `../../assets/img/logos/Amla.jpg`,
+        code: '97963',
       },
       {
         path: `../../assets/img/logos/Perrier.jpg`,

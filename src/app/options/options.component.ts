@@ -19,19 +19,24 @@ export class OptionsComponent implements OnInit {
   constructor(private service: ConnectorService) {
     this.products = [
       {
-        sku: 'Product_V_Black',
-        name: 'Black',
-        hex: '#1A1A1A',
+        sku: 'White',
+        name: 'White',
+        hex: '#E5E7E7',
       },
       {
-        sku: 'Product_V_Blue',
-        name: 'Blue',
-        hex: '#365D78',
+        sku: 'Steel Blue',
+        name: 'Steel Blue',
+        hex: '#4682B4',
       },
       {
-        sku: 'Product_V_Red',
-        name: 'Red',
-        hex: '#7C0106',
+        sku: 'Steel Grey',
+        name: 'Steel Grey',
+        hex: '#7B9095',
+      },
+      {
+        sku: 'Metallic Red',
+        name: 'Metallic Red',
+        hex: '#871614',
       },
     ];
   }
