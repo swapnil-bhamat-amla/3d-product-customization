@@ -40,7 +40,7 @@ export class ImageComponent implements OnInit {
         code: '97962',
       },
       {
-        path: `../../assets/img/logos/Amla.jpg`,
+        path: `../../assets/img/logos/artifi.jpg`,
         code: '97965',
       },
     ];
