@@ -39,6 +39,7 @@ export class OptionsComponent implements OnInit {
         hex: '#871614',
       },
     ];
+    this.selectedSKU = this.products[0].sku;
   }
 
   ngOnInit(): void {}

@@ -20,21 +20,11 @@ export class ImageComponent implements OnInit {
   selectedObjectId = '';
   clipArtBasePath =
     'http://cdnintegrationimages.azureedge.net/UserImages/137708DD-8198-4922-B167-0C90CA79F57F/4d840c81-6b06-4eb0-a11b-9f146f739888/Cliparts/Thumbnail';
-  selectedImagePath = `../../assets/img/logos/Amla.jpg`;
+  selectedImagePath = ``;
   constructor(private service: ConnectorService) {
-    this.imageProps = {
-      type: 'image',
-      src: '97963',
-      widget_key: 'LC',
-      width: 90,
-      height: 90,
-      left: 470.07,
-      top: 230.29,
-      url: this.selectedImagePath,
-    };
     this.clipArtsArr = [
       {
-        path: `../../assets/img/logos/Amla.jpg`,
+        path: `../../assets/img/logos/Yeti.jpg`,
         code: '97963',
       },
       {
@@ -50,10 +40,22 @@ export class ImageComponent implements OnInit {
         code: '97962',
       },
       {
-        path: `../../assets/img/logos/Yeti.jpg`,
+        path: `../../assets/img/logos/Amla.jpg`,
         code: '97965',
       },
     ];
+    this.selectedClipArt = this.clipArtsArr[0].code;
+    this.selectedImagePath = this.clipArtsArr[1].path;
+    this.imageProps = {
+      type: 'image',
+      src: this.selectedClipArt,
+      widget_key: 'LC',
+      width: 90,
+      height: 90,
+      left: 470.07,
+      top: 230.29,
+      url: this.selectedImagePath,
+    };
   }
 
   ngOnInit(): void {

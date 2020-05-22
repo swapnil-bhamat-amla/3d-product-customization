@@ -95,7 +95,7 @@ export class ThreeDPreviewService implements OnDestroy {
         modelPath,
         (gltf: GLTF) => {
           let model = gltf.scene;
-          model.scale.set(2, 2, 2);
+          model.scale.set(1.5, 1.5, 1.5);
           model.position.y = -2;
           this.scene.add(model);
           resolve(model);
