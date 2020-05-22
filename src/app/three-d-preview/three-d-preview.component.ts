@@ -56,6 +56,11 @@ export class ThreeDPreviewComponent implements OnInit {
         this.threeDService.mapColorToMaterial('body', hex);
         break;
       }
+      case ActionType.UploadImage: {
+        let { imageString } = action.data;
+        this.threeDService.mapImageOnMaterial('body', imageString);
+        break;
+      }
       default: {
         break;
       }

@@ -11,6 +11,7 @@ import { ConnectorService } from './connector.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ThreeDPreviewComponent } from './three-d-preview/three-d-preview.component';
+import { UploadImageComponent } from './upload-image/upload-image.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ThreeDPreviewComponent } from './three-d-preview/three-d-preview.compon
     HeaderComponent,
     FooterComponent,
     ThreeDPreviewComponent,
+    UploadImageComponent,
   ],
   imports: [BrowserModule, FormsModule, ColorPickerModule],
   providers: [ConnectorService],

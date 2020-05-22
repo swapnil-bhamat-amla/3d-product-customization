@@ -1,6 +1,6 @@
 export interface IAction {
   type: ActionType;
-  data: IObjectAction | IAttribute | IView;
+  data: IObjectAction | IAttribute | IView | IUploadImage;
 }
 
 export enum ActionType {
@@ -8,6 +8,11 @@ export enum ActionType {
   Image = 'IMAGE',
   Options = 'OPTIONS',
   Views = ' VIEWS',
+  UploadImage = 'UPLOAD_IMAGE',
+}
+
+interface IUploadImage {
+  imageString: string | ArrayBuffer;
 }
 
 interface IAttribute {

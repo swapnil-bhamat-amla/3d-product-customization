@@ -1,0 +1,15 @@
+.thumbnail {
+  width: 65px;
+  height: 65px;
+}
+
+.thumbnail img {
+  max-height: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.max-height {
+  overflow: auto;
+  max-height: 150px;
+}

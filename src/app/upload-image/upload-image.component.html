@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="card-header">
+    Upload Logo
+  </div>
+  <div class="card-body max-height p-3">
+    <input type="file" (change)="onSelectFile($event)" />
+    <a class="thumbnail"><img class="img-responsive" [src]="url" /></a>
+  </div>
+</div>
