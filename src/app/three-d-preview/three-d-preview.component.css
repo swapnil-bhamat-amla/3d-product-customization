@@ -1,5 +1,8 @@
 .renderer-wrapper {
   min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #renderCanvas {
   width: 100%;
@@ -10,4 +13,40 @@
 
 #renderCanvas:focus {
   outline: none;
+}
+
+.loading-notice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  width: 10em;
+  height: 10em;
+  box-sizing: border-box;
+  font-size: 0.9em;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 5em;
+  background: white;
+  position: absolute;
+}
+
+.loading-notice.start {
+  -webkit-animation: popout 0.25s 1s forwards;
+  animation: popout 0.25s 1s forwards;
+}
+
+@-webkit-keyframes popout {
+  to {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+
+@keyframes popout {
+  to {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
 }

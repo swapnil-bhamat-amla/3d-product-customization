@@ -29,21 +29,29 @@ export class ThreeDPreviewService implements OnDestroy {
     container: ElementRef<HTMLDivElement>,
     canvas: ElementRef<HTMLCanvasElement>,
     modelPath: string = ''
-  ): void {
-    this.setRendererDimension(container.nativeElement);
-    this.attachRenderer(canvas.nativeElement);
-    this.addScene();
-    this.addCamera();
-    this.addLights();
-    this.addModel(modelPath).then(
-      (model: THREE.Group) => {
-        this.model = model;
-      },
-      (error: ErrorEvent) => {
-        console.error(error);
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      try {
+        this.setRendererDimension(container.nativeElement);
+        this.attachRenderer(canvas.nativeElement);
+        this.addScene();
+        this.addCamera();
+        this.addLights();
+        this.addControls();
+        this.addModel(modelPath).then(
+          (model: THREE.Group) => {
+            this.model = model;
+            resolve(true);
+          },
+          (error: ErrorEvent) => {
+            console.error(error);
+            reject(error);
+          }
+        );
+      } catch (error) {
+        reject(error);
       }
-    );
-    this.addControls();
+    });
   }
 
   private setRendererDimension(containerEle: HTMLDivElement) {
@@ -139,7 +147,7 @@ export class ThreeDPreviewService implements OnDestroy {
 
   private addControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.autoRotate = false;
+    this.controls.autoRotate = true;
     this.controls.autoRotateSpeed = -10;
     this.controls.screenSpacePanning = true;
   }

@@ -16,18 +16,27 @@ export class ThreeDPreviewComponent implements OnInit {
   @ViewChild('rendererWrapper', { static: true })
   public rendererWrapper: ElementRef<HTMLDivElement>;
 
+  loadingInProgress = true;
+
   public constructor(
     private threeDService: ThreeDPreviewService,
     private connectorService: ConnectorService
   ) {}
 
   public ngOnInit(): void {
-    let model = '../../assets/model/bottle_22_05_2020.gltf';
-    this.threeDService.createScene(
-      this.rendererWrapper,
-      this.rendererCanvas,
-      model
-    );
+    let modelPath = '../../assets/model/bottle_22_05_2020.gltf';
+    this.threeDService
+      .createScene(this.rendererWrapper, this.rendererCanvas, modelPath)
+      .then(
+        (loaded: boolean) => {
+          this.loadingInProgress = false;
+          console.log('scene rendered successfully!', loaded);
+        },
+        (error) => {
+          this.loadingInProgress = false;
+          console.log('Error while loading scene!', error);
+        }
+      );
     this.threeDService.animate();
     this.connectorService.propUpdated.subscribe((action: IAction) => {
       this.performAction(action);

@@ -1,3 +1,8 @@
 <div #rendererWrapper class="renderer-wrapper">
   <canvas #rendererCanvas id="renderCanvas"></canvas>
+  <span
+    class="loading-notice"
+    [ngClass]="{ start: loadingInProgress === false }"
+    >Loading! Please wait..</span
+  >
 </div>
