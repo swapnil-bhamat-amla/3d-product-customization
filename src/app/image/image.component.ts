@@ -24,23 +24,23 @@ export class ImageComponent implements OnInit {
   constructor(private service: ConnectorService) {
     this.clipArtsArr = [
       {
-        path: `../../assets/img/logos/Yeti.jpg`,
+        path: `../../assets/img/logos/Nestle-Waters.png`,
         code: '97963',
       },
       {
-        path: `../../assets/img/logos/Perrier.jpg`,
+        path: `../../assets/img/logos/Perrier.png`,
         code: '97966',
       },
       {
-        path: `../../assets/img/logos/Evian.jpg`,
+        path: `../../assets/img/logos/Evian.png`,
         code: '101098',
       },
       {
-        path: `../../assets/img/logos/Nestle-Waters.jpg`,
+        path: `../../assets/img/logos/Aquafine.jpg`,
         code: '97962',
       },
       {
-        path: `../../assets/img/logos/artifi.jpg`,
+        path: `../../assets/img/logos/artifi.png`,
         code: '97965',
       },
     ];
