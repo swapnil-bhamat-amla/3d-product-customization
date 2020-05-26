@@ -73,7 +73,19 @@ export class ThreeDPreviewService implements OnDestroy {
 
   private addScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xf1f1f1);
+    var r = 'https://threejs.org/examples/textures/cube/Bridge2/';
+    var urls = [
+      r + 'posx.jpg',
+      r + 'negx.jpg',
+      r + 'posy.jpg',
+      r + 'negy.jpg',
+      r + 'posz.jpg',
+      r + 'negz.jpg',
+    ];
+
+    var textureCube = new THREE.CubeTextureLoader().load(urls);
+    textureCube.format = THREE.RGBFormat;
+    this.scene.environment = textureCube;
   }
 
   private addCamera() {
@@ -91,8 +103,8 @@ export class ThreeDPreviewService implements OnDestroy {
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     this.scene.add(ambientLight);
 
-    var dirLight = new THREE.DirectionalLight(0xffffff, 2);
-    dirLight.position.set(0.5, 0, 0.866);
+    var dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    dirLight.position.set(0.5, 1, 0.866);
     this.camera.add(dirLight);
   }
 
