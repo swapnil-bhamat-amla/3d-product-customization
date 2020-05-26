@@ -103,8 +103,8 @@ export class ThreeDPreviewService implements OnDestroy {
         modelPath,
         (gltf: GLTF) => {
           let model = gltf.scene;
-          model.scale.set(1.5, 1.5, 1.5);
-          model.position.y = -2;
+          model.scale.set(2, 2, 2);
+          model.position.y = -2.6;
           this.scene.add(model);
           resolve(model);
         },
@@ -147,7 +147,7 @@ export class ThreeDPreviewService implements OnDestroy {
 
   private addControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.autoRotate = true;
+    this.controls.autoRotate = false;
     this.controls.autoRotateSpeed = -10;
     this.controls.screenSpacePanning = true;
   }
