@@ -24,15 +24,15 @@ export class ImageComponent implements OnInit {
   constructor(private service: ConnectorService) {
     this.clipArtsArr = [
       {
-        path: `../../assets/img/logos/FedEx.jpg`,
+        path: `../../assets/img/logos/google.jpg`,
         code: '97962',
       },
       {
-        path: `../../assets/img/logos/facebook.png`,
+        path: `../../assets/img/logos/World_Surf_League.png`,
         code: '97966',
       },
       {
-        path: `../../assets/img/logos/tesla.png`,
+        path: `../../assets/img/logos/ForTheLoveOfParks.png`,
         code: '101098',
       },
       {
@@ -40,7 +40,7 @@ export class ImageComponent implements OnInit {
         code: '97965',
       },
       {
-        path: `../../assets/img/logos/artifi.png`,
+        path: `../../assets/img/logos/tesla.png`,
         code: '97963',
       },
     ];
