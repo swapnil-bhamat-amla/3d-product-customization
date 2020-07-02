@@ -24,7 +24,7 @@ export class ThreeDPreviewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    let modelPath = '../../assets/model/bottle_26_05_2020.gltf';
+    let modelPath = '../../assets/model/bottle_2_7_2020.gltf';
     this.threeDService
       .createScene(this.rendererWrapper, this.rendererCanvas, modelPath)
       .then(
