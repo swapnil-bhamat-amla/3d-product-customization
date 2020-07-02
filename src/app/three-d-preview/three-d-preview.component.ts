@@ -24,12 +24,16 @@ export class ThreeDPreviewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    let modelPath = '../../assets/model/bottle_2_7_2020.gltf';
+    let modelPath = '../../assets/model/final.gltf';
     this.threeDService
       .createScene(this.rendererWrapper, this.rendererCanvas, modelPath)
       .then(
         (loaded: boolean) => {
           this.loadingInProgress = false;
+          this.threeDService.mapImageOnMaterial(
+            'logo',
+            `../../assets/img/logos/google.png`
+          );
           console.log('scene rendered successfully!', loaded);
         },
         (error) => {
