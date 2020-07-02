@@ -19,24 +19,39 @@ export class OptionsComponent implements OnInit {
   constructor(private service: ConnectorService) {
     this.products = [
       {
+        sku: 'Pacific',
+        name: 'Pacific',
+        hex: '#009BD7',
+      },
+      {
+        sku: 'Black',
+        name: 'Black',
+        hex: '#231F20',
+      },
+      {
         sku: 'White',
         name: 'White',
-        hex: '#E5E7E7',
+        hex: '#F1F1F1',
       },
       {
-        sku: 'Steel Blue',
-        name: 'Steel Blue',
-        hex: '#4682B4',
+        sku: 'Stone',
+        name: 'Stone',
+        hex: '#686766',
       },
       {
-        sku: 'Steel Grey',
-        name: 'Steel Grey',
-        hex: '#7B9095',
+        sku: 'Cobalt',
+        name: 'Cobalt',
+        hex: '#454F69',
       },
       {
-        sku: 'Metallic Red',
-        name: 'Metallic Red',
-        hex: '#871614',
+        sku: 'Olive',
+        name: 'Olive',
+        hex: '#5C663A',
+      },
+      {
+        sku: 'Fog',
+        name: 'Fog',
+        hex: '#C5C2D0',
       },
     ];
     this.selectedSKU = this.products[0].sku;
