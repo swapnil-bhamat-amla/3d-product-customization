@@ -24,24 +24,24 @@ export class ImageComponent implements OnInit {
   constructor(private service: ConnectorService) {
     this.clipArtsArr = [
       {
-        path: `../../assets/img/logos/Aquafine.jpg`,
+        path: `../../assets/img/logos/FedEx.jpg`,
         code: '97962',
       },
       {
-        path: `../../assets/img/logos/Nestle-Waters.png`,
-        code: '97963',
-      },
-      {
-        path: `../../assets/img/logos/Perrier.png`,
+        path: `../../assets/img/logos/facebook.png`,
         code: '97966',
       },
       {
-        path: `../../assets/img/logos/Evian.png`,
+        path: `../../assets/img/logos/tesla.png`,
         code: '101098',
       },
       {
-        path: `../../assets/img/logos/artifi.png`,
+        path: `../../assets/img/logos/amazon.png`,
         code: '97965',
+      },
+      {
+        path: `../../assets/img/logos/artifi.png`,
+        code: '97963',
       },
     ];
     this.selectedClipArt = this.clipArtsArr[0].code;
