@@ -24,7 +24,7 @@ export class ThreeDPreviewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    let modelPath = '../../assets/model/bottle_26_05_2020.gltf';
+    let modelPath = '../../assets/model/bookcase.gltf';
     this.threeDService
       .createScene(this.rendererWrapper, this.rendererCanvas, modelPath)
       .then(
@@ -47,18 +47,18 @@ export class ThreeDPreviewComponent implements OnInit {
     switch (action.type) {
       case ActionType.Image: {
         let { url } = action.data.props;
-        this.threeDService.mapImageOnMaterial('logo', url);
+        this.threeDService.mapImageOnMaterial('Header_Logo', url);
         break;
       }
       case ActionType.Options: {
         let { hex } = action.data;
         hex = hex.toString().replace('#', '0x');
-        this.threeDService.mapColorToMaterial('body', hex);
+        this.threeDService.mapColorToMaterial('VIFS056', hex);
         break;
       }
       case ActionType.UploadImage: {
         let { imageString } = action.data;
-        this.threeDService.mapImageOnMaterial('logo', imageString);
+        this.threeDService.mapImageOnMaterial('Header_Logo', imageString);
         break;
       }
       default: {

@@ -95,7 +95,7 @@ export class ThreeDPreviewService implements OnDestroy {
       0.01,
       1000
     );
-    this.camera.position.z = 4; // How far from object.
+    this.camera.position.z = 5; // How far from object.
     this.scene.add(this.camera);
   }
 
